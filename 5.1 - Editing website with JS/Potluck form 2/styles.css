@@ -1,0 +1,38 @@
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: pink;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* align along flex-direction (column) */
+  align-items: center;  /* align opposite to flex-direction (row) */
+}
+
+button {
+  margin: 10px 10px 10px 0;
+}
+
+#form-div {
+  width: 600px;
+  background-color: white;
+  padding: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 30px;  /* round corners */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#form-title {
+  margin-bottom: 20px;
+}
+
+input[type="text"], textarea, select {
+  margin-bottom: 15px;
+}

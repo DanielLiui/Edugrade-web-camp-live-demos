@@ -1,0 +1,36 @@
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: pink;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#form-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+  width: 600px;
+  border-radius: 30px;
+  padding: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+input[type="text"], textarea, select, #allergies-checkboxes {
+  margin-bottom: 15px;
+}
+
+#thank-you-message {
+  font-weight: bold;
+  font-size: 50px;
+}
+
+

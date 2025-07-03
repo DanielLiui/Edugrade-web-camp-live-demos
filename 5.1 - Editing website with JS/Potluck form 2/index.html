@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="icon" href="">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+
+<body>
+  <div id="form-div"> 
+    <h2 id="form-title"> Potluck </h2>
+    <p> We are having potluck this Sunday July 6 at 12 PM! </p>
+    <p> Excel sheet of who is bringing what food: <a href=""> Link </a></p>
+
+    <!-- 1 line textbox -->
+    <label for="name-field"> Name </label> <!-- put input id into for attribute -->
+    <input type="text" id="name-field" placeholder="Jim Doe">  <!-- no closing tag-->
+
+    <label for="phone-num-field"> Phone number </label> 
+    <input type="text" id="phone-num-field"> 
+    <!-- can use <p> instead of label, but <p> will appear further from
+      text field, while label is closer -->
+    
+    <div id="allergies-checkboxes">
+      <p> Allergies </p>
+      <input type="checkbox"> Peanuts </input> <br>
+      <input type="checkbox"> Milk </input> <br>
+      <input type="checkbox"> Eggs </input> <br>
+      <input type="checkbox"> Other </input> <br>
+    </div>
+    <br>
+
+    <label for="other-allergy-field"> Other: </label> 
+    <input type="text" id="other-allergy-field"> 
+
+    <label for="activity-ideas-field"> Activity ideas </label> 
+    <textarea id="activity-ideas-field" rows="3" cols="50"> </textarea>
+    <!-- cols = columns (number of characters across)-->
+    
+    <!-- Dropdown -->
+    <label for="icecream-dropdown"> Favourite icecream flavor </label>
+    <select id="icecream-dropdown">
+      <option value="Vanilla"> Vanilla </option>
+      <option value="Chocolate"> Chocolate </option>
+      <option value="Strawberry"> Strawberry </option>
+      <option value="Other"> Other </option>
+    </select>
+
+    <label for="other-icecream-field"> Other: </label> 
+    <input type="text" id="other-icecream-field"> 
+
+    <button class="btn btn-primary"> Submit </button>
+  </div>
+
+  <script src="global.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
