@@ -1,0 +1,54 @@
+
+body {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+footer {
+  width: 100vw;
+  background-color: lightgrey;
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.record-button {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;  /* or 50% */
+  border-style: none;
+}
+
+#mic-button {
+  background-color: white;
+}
+
+#stop-record-button {
+  background-color: red;
+}
+
+.fa-microphone {
+  font-size: 20px;
+  color: black;
+}
+
+.fa-square {
+  font-size: 15px;
+  color: black;
+}
+
+button:focus {
+  /* :active and :focus are states where button has been clicked */
+  /* can use either */
+  outline: none;
+}
+
+
+
+

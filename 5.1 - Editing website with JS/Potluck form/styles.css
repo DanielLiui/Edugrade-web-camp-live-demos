@@ -28,7 +28,11 @@ input[type="text"], textarea, select, #allergies-checkboxes {
   margin-bottom: 15px;
 }
 
-#thank-you-message {
+#allergies-checkboxes {
+  margin-top: 10px;
+} 
+
+#ty-message {
   font-weight: bold;
   font-size: 50px;
 }

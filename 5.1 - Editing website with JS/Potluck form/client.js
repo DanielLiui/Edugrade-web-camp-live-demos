@@ -1,12 +1,13 @@
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  qSel("#submit-button").addEventListener("click", readData)
+  qSel("#submit-button").addEventListener("click", readUserData)
 })
 
-let userData = {name: "", phoneNum: "", allergies: [], activityIdeas: "", favIcecream: ""}
 
-function readData() {
+function readUserData() {
+  let userData = {name: "", phoneNum: "", allergies: [], activityIdeas: "", favIcecream: ""}
+
   userData.name = qSel("#name-field").value
   userData.phoneNum = qSel("#phone-num-field").value
   userData.allergies = readAllergies()
@@ -14,25 +15,32 @@ function readData() {
   userData.favIcecream = readFavIcecream()
 
   log(userData)
-  sayThanks()
+  sayThankYou()
 }
 
 
 function readAllergies() {
-  //get all checkboxes and return allergies of those that are checked
   let allergies = []
   let allergyOptions = ['peanuts', 'tree nuts', 'milk', 'eggs', 'other']
-  let checkboxes = qSelAll('input[type="checkbox"]')
+  let checkboxes = qSelAll("input[type='checkbox']")
 
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {
       allergies.push(allergyOptions[i])
+
+      //can't do 
+      //allergies.push(checkboxes[i].textContent)  
+      //since input elements are "void elements" with empty string .textContent values
+
+      //another option: give checkboxes a value property like 
+      //<input type="checkbox" value="Peanuts"> Peanuts </input> <br></br>
+      //then call
+      //allergies.push(checkboxes[i].value)
     }
   }
 
   let otherAllergy = qSel("#other-allergy-field").value
-  if (otherAllergy != "") allergies.push(otherAllergy) 
-
+  if (otherAllergy != "") allergies.push(otherAllergy)
   return allergies
 }
 
@@ -42,23 +50,21 @@ function readFavIcecream() {
   let selectedOption = dropdown.options[dropdown.selectedIndex]
   let favIcecream = selectedOption.value
 
-  if (favIcecream == "Other") {
-    favIcecream = qSel("#other-icecream-field").value
-  }
+  if (favIcecream == "Other") favIcecream = qSel("#other-icecream-field").value
   return favIcecream
 }
 
 
-function sayThanks() {
-  //delete formDiv then say thank you
+function sayThankYou() {
+  //remove form and display thank you message
   let body = qSel("body")
   body.removeChild(qSel("#form-div"))
 
-  let tyMessage = document.createElement("p")
-  tyMessage.textContent = "Thanks for your response"
-  tyMessage.id = "thank-you-message"
-
-  body.appendChild(tyMessage)
+  let message = document.createElement("p")
+  message.textContent = "Thank you for responding"
+  message.id = "ty-message"
+  body.appendChild(message)
 }
+
 
 
