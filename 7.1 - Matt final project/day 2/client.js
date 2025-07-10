@@ -8,6 +8,7 @@ const products = [
     description: "Latest flagship smartphone with advanced camera",
     image: "📱"
   },
+
   {
     id: 2,
     name: "Laptop Ultra",
@@ -15,6 +16,7 @@ const products = [
     description: "High-performance laptop for work and gaming",
     image: "💻"
   },
+
   {
     id: 3,
     name: "Wireless Headphones",
@@ -22,6 +24,7 @@ const products = [
     description: "Premium noise-cancelling headphones",
     image: "🎧"
   },
+  
   {
     id: 4,
     name: "Smart Watch",
@@ -29,6 +32,7 @@ const products = [
     description: "Fitness tracking and smart notifications",
     image: "⌚"
   },
+  
   {
     id: 5,
     name: "Tablet Pro",
@@ -45,48 +49,55 @@ const products = [
   }
 ];
 
-// Cart functionality
-let cart = [];
+
+let cart = []  //{product: productObj defined in products, quantity: X}
 
 // Function to display products
 function displayProducts() {
-  const productGrid = document.getElementById('productGrid');
+  const productGrid = document.getElementById('productGrid')
   
   products.forEach(product => {
-    const productCard = document.createElement('div');
-    productCard.className = 'product-card';
+    const productCard = document.createElement('div')
+    productCard.classList.add('product-card')
+    //or productCard.className = "product-card"
+
     productCard.innerHTML = `
-      <div class="product-image">${product.image}</div>
+      <div class="product-image"> ${product.image} </div>
+
       <div class="product-info">
-        <h3 class="product-title">${product.name}</h3>
-        <p class="product-price">$${product.price}</p>
-        <p class="product-description">${product.description}</p>
-        <button class="btn" onclick="addToCart(${product.id})">Add to Cart</button>
+        <h3 class="product-title"> ${product.name} </h3>
+        <p class="product-price">$ ${product.price} </p>
+        <p class="product-description"> ${product.description} </p>
+        <button class="btn" onclick="addToCart(${product.id})"> Add to Cart </button>
       </div>
-    `;
-    productGrid.appendChild(productCard);
-  });
+    `
+    productGrid.appendChild(productCard)
+  })
 }
 
 // Add to cart function
 function addToCart(productId) {
-  const product = products.find(p => p.id === productId);
-  const existingItem = cart.find(item => item.id === productId);
+  const product = products.find(p => p.id == productId)
+  // check if product is already in the cart
+  const existingCartItem = cart.find(item => item.product.id == productId)
   
-  if (existingItem) {
-    existingItem.quantity++;
-  } else {
-    cart.push({ ...product, quantity: 1 });
+  if (!existingCartItem) {  //undefined or null
+    cart.push({ product: product, quantity: 1 })
+  } 
+  else {  //product already in cart
+    existingCartItem.quantity++
   }
+
+  log("cart: " + JSON.stringify(cart))
   
-  updateCartDisplay();
-  showNotification('Product added to cart!');
+  updateCartDisplay()
+  itemAddedNotification()
 }
 
 // Remove from cart function
 function removeFromCart(productId) {
-  cart = cart.filter(item => item.id !== productId);
-  updateCartDisplay();
+  cart = cart.filter(item => item.product.id !== productId)
+  updateCartDisplay()
 }
 
 // Update quantity function
@@ -104,38 +115,48 @@ function updateQuantity(productId, change) {
 
 // Update cart display
 function updateCartDisplay() {
-  const cartCount = document.getElementById('cartCount');
-  const cartItems = document.getElementById('cartItems');
-  const totalAmount = document.getElementById('totalAmount');
+  const cartCount = document.getElementById('cartCount')
+  const cartItems = document.getElementById('cartItems')
+  const totalAmount = document.getElementById('totalAmount')
   
-  // Update cart count
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-  cartCount.textContent = totalItems;
+  // Update cart count (ok Matt)
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0)
+  cartCount.textContent = totalItems
   
   // Update cart items
-  if (cart.length === 0) {
-    cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-    totalAmount.textContent = '0.00';
-  } else {
-    cartItems.innerHTML = cart.map(item => `
-      <div class="cart-item">
-        <div class="cart-item-image">${item.image}</div>
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">$${item.price}</div>
+  cartItems.innerHTML = `` //start new string
+
+  if (cart.length == 0) {
+    cartItems.innerHTML = '<div class="empty-cart"> Your cart is empty </div>'
+    totalAmount.textContent = '0.00'
+  } 
+  else {
+    for (let item of cart) {
+      let product = item.product
+
+      cartItems.innerHTML += `
+        <div class="cart-item">
+          <div class="cart-item-image">${product.image}</div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${product.name}</div>
+            <div class="cart-item-price">$${product.price}</div>
+          </div>
+
+          <div class="quantity-controls">
+            <button class="quantity-btn" onclick="updateQuantity(${product.id}, -1)"> - </button>
+            <span> ${item.quantity} </span>
+            <button class="quantity-btn" onclick="updateQuantity(${product.id}, 1)"> + </button>
+          </div>
+
+          <button class="remove-btn" onclick="removeFromCart(${product.id})">Remove</button>
         </div>
-        <div class="quantity-controls">
-          <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-          <span>${item.quantity}</span>
-          <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-        </div>
-        <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
-      </div>
-    `).join('');
+
+      `
+    }
     
-    // Update total
-    const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-    totalAmount.textContent = total.toFixed(2);
+    // Update total price (ok Matt)
+    const total = cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+    totalAmount.textContent = total.toFixed(2)  //2 decimal places
   }
 }
 
@@ -145,26 +166,29 @@ function toggleCart() {
   cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
 }
 
-// Show notification
-function showNotification(message) {
-  const notification = document.getElementById('notification');
-  notification.textContent = message;
-  notification.style.display = 'block';
+
+function itemAddedNotification() {
+  const notification = document.getElementById('notification')
+  notification.style.display = 'block'
   
+  //after x milliseconds (last parameter), run code
   setTimeout(() => {
     notification.style.display = 'none';
-  }, 3000);
+  }, 3000) //3000 milliseconds = 3 seconds
 }
 
+/*
 // Close cart when clicking outside
+// #cartModal is cart popup
 document.getElementById('cartModal').addEventListener('click', function(e) {
   if (e.target === this) {
     toggleCart();
   }
 });
+*/
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
-  displayProducts();
-  updateCartDisplay();
-});
+  displayProducts()
+  updateCartDisplay()
+})

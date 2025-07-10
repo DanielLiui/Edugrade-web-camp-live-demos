@@ -127,7 +127,10 @@ nav {
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  /* 300px is min width of a grid element */
+  /* if grid row can fit another grid element, put it in the row 
+     otherwise, put it on the next row */
+  gap: 32px;
 }
 
 .product-card {
@@ -307,8 +310,14 @@ footer {
   right: 20px;
   background: #27ae60;
   color: white;
-  padding: 1rem 1.5rem;
+  padding: 10px 10px;  /*vertical and horizontal padding*/
+  /* can also do padding: 10px 10px 10px 10px; -> top right bottom left */
   border-radius: 5px;
-  display: none;
-  z-index: 1001;
+  z-index: 1001; 
+  /* an element with a z-index will appear over elements with no z-index */
+  /* an element with a higher z-index will appear above another an element 
+  with a lower z-index
+  (eg. element with z-index: 1001 will appear over an element with 
+  z-index 1000)
+  */
 }
